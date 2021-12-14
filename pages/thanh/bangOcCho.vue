@@ -1,5 +1,6 @@
 <template>
-    <nuxt-content :document="doc" />
+    <!-- <nuxt-content :document="doc" /> -->
+    <h1>test tree</h1>
 </template>
 
 <script>
