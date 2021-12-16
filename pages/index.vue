@@ -59,8 +59,7 @@ export default {
   margin-top: 3rem;
   .thumbnail-banner {
     height: inherit;
-    background: url(https://image.shutterstock.com/image-vector/grey-banner-falling-gold-bitcoins-260nw-789956296.jpg)
-      center center;
+    background: url("~assets/images/banner.webp") center center;
     background-size: cover;
   }
 }
