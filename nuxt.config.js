@@ -18,6 +18,8 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/css/rhpteam.min.css',
+    '~/assets/css/external.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
