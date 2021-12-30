@@ -5,7 +5,9 @@
         <h3>Deck: {{ $route.params.id }} learn english by sky alber</h3>
         <div class="tools">
           <button class="btn btn_success">Start now</button>
-          <button class="btn btn_primary">Create card</button>
+          <button class="btn btn_primary" @click.prevent="openModal">
+            Create card
+          </button>
         </div>
         <hr class="divide" />
         <div class="r">
@@ -64,18 +66,67 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <v-modal name="CreateCardModal">
+      <div class="modal_body">
+        <h2>Create a new Card</h2>
+        <form action="">
+          <div class="from_group">
+            <label for="">Name:</label>
+            <input
+              class="form_control"
+              type="text"
+              placeholder="Please enter name deck"
+            />
+          </div>
+          <div class="from_group">
+            <label for="">Description:</label>
+            <textarea
+              class="form_control"
+              placeholder="Please enter description"
+            ></textarea>
+          </div>
+          <div class="from_group">
+            <label for="">Thumbnail:</label>
+            <input type="file" />
+            <div class="preview"></div>
+          </div>
+          <div class="from_group d_flex justify_content_end">
+            <button class="btn btn_danger" @click.prevent="closeModal">
+              Close
+            </button>
+            <button class="btn btn_success ml_3" @click.prevent="openModal">
+              Create
+            </button>
+          </div>
+        </form>
+      </div>
+    </v-modal>
   </section>
 </template>
 
 <script>
 export default {
-  /* async */ validate({ params }) {
+  validate({ params }) {
+    /* async */
     //context
     // console.log(context)
 
     // nhớ phải return trả về
     return /^[0-9]$/.test(params.id); //(^) từ đầu. ($) đến cuối. [0-9] chỉ nhập số. {9,12} nhập từ 9-12 ký tự
     // return /^[0-9]{9,12}$/.test(params.id)
+  },
+  methods: {
+    openModal() {
+      // console.log("open modal");
+      this.$modal.open({ name: "CreateCardModal" });
+    },
+
+    closeModal() {
+      console.log("close modal");
+      this.$modal.close({ name: "CreateCardModal" });
+    },
   },
 };
 </script>
@@ -92,5 +143,10 @@ section {
   .divide {
     margin: 2rem 0;
   }
+}
+
+.modal_body {
+  background-color: #fff;
+  padding: 1rem;
 }
 </style>
