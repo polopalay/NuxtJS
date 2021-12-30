@@ -9,17 +9,13 @@
         </button>
       </div>
       <ul class="desks-list">
-        <li v-for="deck in decks" :key="deck._id">
-          <nuxt-link class="deck" to="/decks/1">
-            <div class="card deck-card">
-              <img :src="deck.thumbnail" :alt="`Thumbnail of ${deck.name}`" />
-              <div class="card-body">
-                <h3>{{ deck.name }}</h3>
-                <p>{{ deck.description }}</p>
-              </div>
-            </div>
-          </nuxt-link>
-        </li>
+        <deck-list
+          v-for="deck in decks"
+          :key="deck._id"
+          :name="deck.name"
+          :description="deck.description"
+          :thumbnail="deck.thumbnail"
+        />
       </ul>
       <!-- <input class="form_controler" type="text" id="text" v-model="deckID" placeholder="Please enter deckID">
             <button class="btn btn-success" @click="showDeck">Go to Deck</button> -->
@@ -65,7 +61,11 @@
 </template>
 
 <script>
+import DeckList from "@/components/Decks/DeckList.vue";
 export default {
+  components: {
+    DeckList,
+  },
   //   data() {
   //     return {
   //       deckID: "1",

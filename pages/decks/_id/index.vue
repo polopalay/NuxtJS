@@ -11,16 +11,12 @@
         </div>
         <hr class="divide" />
         <div class="r">
-          <div class="c_3" v-for="card in cards" :key="card._id">
-            <div class="cards">
-              <div class="card">
-                <div class="front-card">
-                  <img :src="card.picture" />
-                </div>
-                <div class="back-card">{{ card.keyword }}</div>
-              </div>
-            </div>
-          </div>
+          <card-list
+            v-for="card in cards"
+            :key="card._id"
+            :keyword="card.keyword"
+            :picture="card.picture"
+          />
         </div>
       </div>
     </div>
@@ -65,6 +61,8 @@
 </template>
 
 <script>
+import CardList from "@/components/Cards/CardList.vue";
+
 export default {
   validate({ params }) {
     /* async */
@@ -74,6 +72,9 @@ export default {
     // nhớ phải return trả về
     return /^[0-9]$/.test(params.id); //(^) từ đầu. ($) đến cuối. [0-9] chỉ nhập số. {9,12} nhập từ 9-12 ký tự
     // return /^[0-9]{9,12}$/.test(params.id)
+  },
+  components: {
+    CardList,
   },
   data() {
     return {
