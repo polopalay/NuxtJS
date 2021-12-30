@@ -9,44 +9,13 @@
         </button>
       </div>
       <ul class="desks-list">
-        <li>
+        <li v-for="deck in decks" :key="deck._id">
           <nuxt-link class="deck" to="/decks/1">
             <div class="card deck-card">
-              <img
-                src="https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80"
-                alt="Thumbnail card"
-              />
+              <img :src="deck.thumbnail" :alt="`Thumbnail of ${deck.name}`" />
               <div class="card-body">
-                <h3>Title card</h3>
-                <p>Description card</p>
-              </div>
-            </div>
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link class="deck" to="/decks/1">
-            <div class="card deck-card">
-              <img
-                src="https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80"
-                alt="Thumbnail card"
-              />
-              <div class="card-body">
-                <h3>Title card</h3>
-                <p>Description card</p>
-              </div>
-            </div>
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link class="deck" to="/decks/2">
-            <div class="card deck-card">
-              <img
-                src="https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80"
-                alt="Thumbnail card"
-              />
-              <div class="card-body">
-                <h3>Title card</h3>
-                <p>Description card</p>
+                <h3>{{ deck.name }}</h3>
+                <p>{{ deck.description }}</p>
               </div>
             </div>
           </nuxt-link>
@@ -108,6 +77,36 @@ export default {
   //       this.$router.push(`decks/${this.deckID}`);
   //     },
   //   },
+  data() {
+    return {
+      decks: [
+        {
+          _id: 1,
+          name: "Learn Enlish",
+          description:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          thumbnail:
+            "https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80",
+        },
+        {
+          _id: 2,
+          name: "Learn Chinese",
+          description:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          thumbnail:
+            "https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80",
+        },
+        {
+          _id: 3,
+          name: "Learn Japanese",
+          description:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          thumbnail:
+            "https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80",
+        },
+      ],
+    };
+  },
   methods: {
     openModal() {
       // console.log("open modal");

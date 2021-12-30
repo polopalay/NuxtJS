@@ -11,55 +11,13 @@
         </div>
         <hr class="divide" />
         <div class="r">
-          <div class="c_3">
+          <div class="c_3" v-for="card in cards" :key="card._id">
             <div class="cards">
               <div class="card">
                 <div class="front-card">
-                  <img
-                    src="https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg"
-                    alt="Thmbnail card"
-                  />
+                  <img :src="card.picture" />
                 </div>
-                <div class="back-card"></div>
-              </div>
-            </div>
-          </div>
-          <div class="c_3">
-            <div class="cards">
-              <div class="card">
-                <div class="front-card">
-                  <img
-                    src="https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg"
-                    alt="Thmbnail card"
-                  />
-                </div>
-                <div class="back-card"></div>
-              </div>
-            </div>
-          </div>
-          <div class="c_3">
-            <div class="cards">
-              <div class="card">
-                <div class="front-card">
-                  <img
-                    src="https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg"
-                    alt="Thmbnail card"
-                  />
-                </div>
-                <div class="back-card"></div>
-              </div>
-            </div>
-          </div>
-          <div class="c_3">
-            <div class="cards">
-              <div class="card">
-                <div class="front-card">
-                  <img
-                    src="https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg"
-                    alt="Thmbnail card"
-                  />
-                </div>
-                <div class="back-card"></div>
+                <div class="back-card">{{ card.keyword }}</div>
               </div>
             </div>
           </div>
@@ -116,6 +74,36 @@ export default {
     // nhớ phải return trả về
     return /^[0-9]$/.test(params.id); //(^) từ đầu. ($) đến cuối. [0-9] chỉ nhập số. {9,12} nhập từ 9-12 ký tự
     // return /^[0-9]{9,12}$/.test(params.id)
+  },
+  data() {
+    return {
+      cards: [
+        {
+          _id: 1,
+          picture:
+            "https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg",
+          keyword: "Road",
+        },
+        {
+          _id: 2,
+          picture:
+            "https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg",
+          keyword: "Road",
+        },
+        {
+          _id: 3,
+          picture:
+            "https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg",
+          keyword: "Road",
+        },
+        {
+          _id: 4,
+          picture:
+            "https://coin68.com/wp-content/uploads/2021/09/shop.com-bitpay-bitcoin.jpeg",
+          keyword: "Road",
+        },
+      ],
+    };
   },
   methods: {
     openModal() {
