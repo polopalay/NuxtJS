@@ -61,45 +61,62 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import CardList from "@/components/Cards/CardList.vue";
 
 export default {
-  validate({ params }) {
-    /* async */
-    //context
-    // console.log(context)
+  // validate({ params }) {
+  //   /* async */
+  //   //context
+  //   // console.log(context)
 
-    // nhớ phải return trả về
-    return /^[0-9]$/.test(params.id); //(^) từ đầu. ($) đến cuối. [0-9] chỉ nhập số. {9,12} nhập từ 9-12 ký tự
-    // return /^[0-9]{9,12}$/.test(params.id)
-  },
+  //   // nhớ phải return trả về
+  //   return /^[0-9]$/.test(params.id); //(^) từ đầu. ($) đến cuối. [0-9] chỉ nhập số. {9,12} nhập từ 9-12 ký tự
+  //   // return /^[0-9]{9,12}$/.test(params.id)
+  // },
   components: {
     CardList,
   },
 
-  asyncData(context) {
-    // -, Không thể viết this ở trong asyncData vì: $this là giá trị của 1 dom. Mà async chạy trước khi dom dc tạo => k thể sử dụng $this trong hàm asyncData.
-    // Thay vì đó ta sẽ sử dụng hàm context trong hàm asyncData để lấy parameter về, thay vì lấy từ roter ở client. Tức là với lần đầu mà server render nó vẫn lấy dc parameter
+  // asyncData(context) {
+  //   // -, Không thể viết this ở trong asyncData vì: $this là giá trị của 1 dom. Mà async chạy trước khi dom dc tạo => k thể sử dụng $this trong hàm asyncData.
+  //   // Thay vì đó ta sẽ sử dụng hàm context trong hàm asyncData để lấy parameter về, thay vì lấy từ roter ở client. Tức là với lần đầu mà server render nó vẫn lấy dc parameter
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          deck: {
-            _id: 1,
-            name: `Learn Enlish by deck ${context.params.id}`,
-            description:
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            thumbnail:
-              "https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80",
-          },
-        });
-      }, 1500);
-    })
-      .then((data) => {
-        return data;
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve({
+  //         deck: {
+  //           _id: 1,
+  //           name: `Learn Enlish by deck ${context.params.id}`,
+  //           description:
+  //             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  //           thumbnail:
+  //             "https://academy.binance.com/_next/image?url=https%3A%2F%2Fimage.binance.vision%2Fuploads-original%2F0ee9d7d59d424a7c8bd7d70c86070beb.png&w=1920&q=80",
+  //         },
+  //       });
+  //     }, 1500);
+  //   })
+  //     .then((data) => {
+  //       return data;
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // },
+  asyncData(context) {
+    // getOne lấy đơn dữ liệu, cần id để xử lý. Mà nuxtServerInit dc khơi động khu nuxt khởi động => k thể gửi id vào cho nuxtServerInit dc
+    return axios
+      .get(
+        `https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks/${context.params.id}.json`
+      )
+      .then((response) => {
+        return {
+          deck: response.data,
+        };
       })
       .catch((e) => {
-        console.log(e);
+        return context.error(e);
       });
   },
 
