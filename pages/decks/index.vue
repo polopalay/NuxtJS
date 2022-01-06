@@ -1,4 +1,5 @@
 <template>
+  <!-- logic lên để trong page chứ k lên viết trong các component. Bộ quy tắc sẽ giúp tường minh code -->
   <div>
     <div class="ct">
       <div class="d_flex justify_content_between my_3">
@@ -26,45 +27,20 @@
     <v-modal name="CreateDeckModal">
       <div class="modal_body">
         <h2>Create a new Deck</h2>
-        <form action="">
-          <div class="from_group">
-            <label for="">Name:</label>
-            <input
-              class="form_control"
-              type="text"
-              placeholder="Please enter name deck"
-            />
-          </div>
-          <div class="from_group">
-            <label for="">Description:</label>
-            <textarea
-              class="form_control"
-              placeholder="Please enter description"
-            ></textarea>
-          </div>
-          <div class="from_group">
-            <label for="">Thumbnail:</label>
-            <input type="file" />
-            <div class="preview"></div>
-          </div>
-          <div class="from_group d_flex justify_content_end">
-            <button class="btn btn_danger" @click.prevent="closeModal">
-              Close
-            </button>
-            <button class="btn btn_success ml_3" @click.prevent="createDeck">
-              Create
-            </button>
-          </div>
-        </form>
+        <deck-from @submit="onSubmit" />
       </div>
     </v-modal>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
+import DeckFrom from "@/components/Decks/DeckFrom.vue";
 import DeckList from "@/components/Decks/DeckList.vue";
 export default {
   components: {
+    DeckFrom,
     DeckList,
   },
   //   data() {
@@ -144,10 +120,18 @@ export default {
       // console.log("open modal");
       this.$modal.open({ name: "CreateDeckModal" });
     },
-
-    closeModal() {
-      console.log("close modal");
-      this.$modal.close({ name: "CreateDeckModal" });
+    onSubmit(deckData) {
+      axios
+        .post(
+          "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks.json",
+          deckData
+        )
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 };

@@ -1,9 +1,11 @@
 <template>
-  <!-- <div>
-    <form action="">
+  <!-- Với một modal sử đụng dể vừa làm modal create vừa làm model edit => lên hứng là một object thay vì hứng từng prop như component -->
+  <div>
+    <form @submit.prevent="onSave">
       <div class="from_group">
         <label for="">Name:</label>
         <input
+          v-model="editedDeck.name"
           class="form_control"
           type="text"
           placeholder="Please enter name deck"
@@ -12,40 +14,66 @@
       <div class="from_group">
         <label for="">Description:</label>
         <textarea
+          v-model="editedDeck.description"
           class="form_control"
           placeholder="Please enter description"
         ></textarea>
       </div>
       <div class="from_group">
         <label for="">Thumbnail:</label>
-        <input type="text" placeholder="https://example.com/foo.png" />
+        <input
+          v-model="editedDeck.thumbnail"
+          class="form_control"
+          type="text"
+          placeholder="https://example.com/foo.png"
+        />
         <div class="preview"></div>
       </div>
       <div class="from_group d_flex justify_content_end">
         <button class="btn btn_danger" @click.prevent="closeModal">
           Close
         </button>
-        <button class="btn btn_success ml_3" @click.prevent="createDeck">
+        <button class="btn btn_success ml_3" type="submit">
+          <!-- phải có type="submit" thì nó mới có thể nhận sự kiện @submit.prevent -->
           Create
         </button>
       </div>
     </form>
-  </div> -->
-  <div></div>
+  </div>
 </template>
 
 <script>
 export default {
-  // props: {
-  //   deck: {
-  //     type: Object,
-  //     //   require: false,
-  //     default: {
-  //       name: "",
-  //       description: "",
-  //       thumbnail: "",
-  //     },
-  //   },
-  // },
+  props: {
+    deck: {
+      type: Object,
+      //   require: false,
+      default: () => ({
+        name: "",
+        description: "",
+        thumbnail: "",
+      }),
+    },
+  },
+  data() {
+    return {
+      editedDeck: this.deck
+        ? { ...this.deck }
+        : {
+            name: "",
+            description: "",
+            thumbnail: "",
+          },
+    };
+  },
+  methods: {
+    closeModal() {
+      console.log("close modal");
+      this.$modal.close({ name: "CreateDeckModal" });
+    },
+    onSave() {
+      this.$emit("submit", this.editedDeck);
+    },
+  },
 };
 </script>
