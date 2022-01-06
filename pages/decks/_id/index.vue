@@ -5,8 +5,17 @@
         <h3>Deck: #{{ $route.params.id }}: {{ deck.name }}</h3>
         <div class="tools">
           <button class="btn btn_success">Start now</button>
-          <button class="btn btn_primary" @click.prevent="openModal">
+          <button
+            class="btn btn_primary"
+            @click.prevent="openModal('CreateCardModal')"
+          >
             Create card
+          </button>
+          <button
+            class="btn btn_warning"
+            @click.prevent="openModal('DeckFormModal')"
+          >
+            Edit Deck
           </button>
         </div>
         <hr class="divide" />
@@ -151,9 +160,16 @@ export default {
     };
   },
   methods: {
-    openModal() {
+    openModal(name) {
       // console.log("open modal");
-      this.$modal.open({ name: "CreateCardModal" });
+      if (name === "CreateCardModal") {
+        this.$modal.open({ name: "CreateCardModal" });
+      } else if (name === "DeckFormModal") {
+        this.$modal.open({
+          name: "DeckFormModal",
+          payload: { ...this.deck, id: this.$route.params.id },
+        });
+      }
     },
 
     closeModal() {

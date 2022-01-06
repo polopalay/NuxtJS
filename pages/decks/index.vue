@@ -22,25 +22,13 @@
       <!-- <input class="form_controler" type="text" id="text" v-model="deckID" placeholder="Please enter deckID">
             <button class="btn btn-success" @click="showDeck">Go to Deck</button> -->
     </div>
-
-    <!-- Modal -->
-    <v-modal name="CreateDeckModal">
-      <div class="modal_body">
-        <h2>Create a new Deck</h2>
-        <deck-from @submit="onSubmit" />
-      </div>
-    </v-modal>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
-import DeckFrom from "@/components/Decks/DeckFrom.vue";
 import DeckList from "@/components/Decks/DeckList.vue";
 export default {
   components: {
-    DeckFrom,
     DeckList,
   },
   //   data() {
@@ -118,20 +106,7 @@ export default {
   methods: {
     openModal() {
       // console.log("open modal");
-      this.$modal.open({ name: "CreateDeckModal" });
-    },
-    onSubmit(deckData) {
-      axios
-        .post(
-          "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks.json",
-          deckData
-        )
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      this.$modal.open({ name: "DeckFormModal" });
     },
   },
 };

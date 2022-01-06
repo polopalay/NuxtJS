@@ -9,15 +9,14 @@
           class="modal_mask"
         >
           <div class="modal_body">
-            <slot :payload="payload" />/*khi người dùng muốn ng dùng có thể
-            custom dc giao diện bên trong modals này*/
+            <slot :payload="payload" />
+            <!-- /*khi người dùng muốn ng dùng có thể custom dc giao diện bên trong modals này*/ -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import VModal from "./handle";
@@ -64,11 +63,13 @@ export default {
       // console.log("open");
       this.visible = true;
       //TO DO SOMETHING
+
+      //Truyền payload bằng giá trị decks để modal có thể nhận dc
+      this.payload = params.payload;
     },
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .modal {

@@ -35,7 +35,7 @@
         </button>
         <button class="btn btn_success ml_3" type="submit">
           <!-- phải có type="submit" thì nó mới có thể nhận sự kiện @submit.prevent -->
-          Create
+          {{ editedDeck && editedDeck.id ? "Edit" : "Create" }}
         </button>
       </div>
     </form>
@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      editedDeck: this.deck
+      editedDeck: this.deck //Tạo ra biến trung gian, vì có thể biến đó k thể ghi đè trên vùng nhớ đó => cần mọt biến trung gian để giải quyết vấn đề này
         ? { ...this.deck }
         : {
             name: "",
@@ -69,7 +69,7 @@ export default {
   methods: {
     closeModal() {
       console.log("close modal");
-      this.$modal.close({ name: "CreateDeckModal" });
+      this.$modal.close({ name: "DeckFormModal" });
     },
     onSave() {
       this.$emit("submit", this.editedDeck);
