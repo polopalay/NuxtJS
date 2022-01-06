@@ -12,8 +12,8 @@
       <ul class="desks-list">
         <deck-list
           v-for="deck in decks"
-          :id="deck._id"
-          :key="deck._id"
+          :id="deck.id"
+          :key="deck.id"
           :name="deck.name"
           :description="deck.description"
           :thumbnail="deck.thumbnail"
