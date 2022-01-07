@@ -1,5 +1,6 @@
 <template>
   <div class="ct">
+    <event-alert class="mt_3" />
     <!-- <div>
       <h1>Homepage is here....</h1>
     </div>
