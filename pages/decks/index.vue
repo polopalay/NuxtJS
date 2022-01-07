@@ -28,6 +28,9 @@
 <script>
 import DeckList from "@/components/Decks/DeckList.vue";
 export default {
+  head: {
+    title: "Own Decks | Learning Languages By Flash Card Online",
+  },
   components: {
     DeckList,
   },

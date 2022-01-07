@@ -116,9 +116,7 @@ export default {
   asyncData(context) {
     // getOne lấy đơn dữ liệu, cần id để xử lý. Mà nuxtServerInit dc khơi động khu nuxt khởi động => k thể gửi id vào cho nuxtServerInit dc
     return axios
-      .get(
-        `https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks/${context.params.id}.json`
-      )
+      .get(`${process.env.baseApiUrl}/decks/${context.params.id}.json`)
       .then((response) => {
         return {
           deck: response.data,
@@ -176,6 +174,11 @@ export default {
       console.log("close modal");
       this.$modal.close({ name: "CreateCardModal" });
     },
+  },
+  head() {
+    return {
+      title: `Deck: ${this.deck.name} | Learning Languages By Flash Card Online`,
+    };
   },
 };
 </script>

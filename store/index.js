@@ -70,10 +70,10 @@ const createStore = () => {
       // },
 
       nuxtServerInit(vuexContext, context) {
+        console.log(process.env.baseApiUrl, "process.env.baseApiUrl");
+
         return axios
-          .get(
-            "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks.json"
-          )
+          .get(process.env.baseApiUrl + "/decks.json")
           .then((response) => {
             const decksArr = [];
             for (const key in response.data) {
@@ -87,10 +87,7 @@ const createStore = () => {
 
       addDeck(vuexContext, deckData) {
         return axios
-          .post(
-            "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks.json",
-            deckData
-          )
+          .post(process.env.baseApiUrl + "/decks.json", deckData)
           .then((result) => {
             vuexContext.commit("addDecks", {
               ...deckData,
@@ -107,10 +104,7 @@ const createStore = () => {
         delete deckData.id;
 
         return axios
-          .put(
-            `https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app/decks/${deckId}.json`,
-            deckData
-          )
+          .put(process.env.baseApiUrl + `/decks/${deckId}.json`, deckData)
           .then((result) => {
             vuexContext.commit("editDecks", {
               ...result.data,
