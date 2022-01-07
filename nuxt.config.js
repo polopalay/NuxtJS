@@ -50,4 +50,9 @@ export default {
       process.env.BASE_API_URL ||
       "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app",
   },
+
+  //Middleware global
+  router: {
+    middleware: "router-log",
+  },
 };

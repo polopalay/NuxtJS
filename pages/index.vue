@@ -39,6 +39,12 @@
 </template>
 
 <script>
+export default {
+  middleware: "router-log",
+};
+</script>
+
+<script>
 // import bangOcCho from "./thanh/bangOcCho.vue";
 export default {
   data() {
