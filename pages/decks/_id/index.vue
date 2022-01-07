@@ -70,8 +70,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import CardList from "@/components/Cards/CardList.vue";
 
 export default {
@@ -115,11 +113,11 @@ export default {
   // },
   asyncData(context) {
     // getOne lấy đơn dữ liệu, cần id để xử lý. Mà nuxtServerInit dc khơi động khu nuxt khởi động => k thể gửi id vào cho nuxtServerInit dc
-    return axios
-      .get(`${process.env.baseApiUrl}/decks/${context.params.id}.json`)
-      .then((response) => {
+    return context.app.$axios
+      .$get(`${process.env.baseApiUrl}/decks/${context.params.id}.json`)
+      .then((data) => {
         return {
-          deck: response.data,
+          deck: data,
         };
       })
       .catch((e) => {

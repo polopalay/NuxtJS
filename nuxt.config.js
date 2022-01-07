@@ -30,7 +30,14 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxt/content"],
+  modules: ["@nuxt/content", "@nuxtjs/axios"],
+
+  //Sử dụng luôn modul axios mà nuxt cung cấp => k cần phải import vào. Và nó có thể sd như một plugin global
+  axios: {
+    baseApiUrl:
+      process.env.BASE_API_URL ||
+      "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
