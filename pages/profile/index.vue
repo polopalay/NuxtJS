@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  middleware: "router-log",
+  middleware: "auth",
 };
 </script>

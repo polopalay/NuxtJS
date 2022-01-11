@@ -30,6 +30,9 @@ const createStore = () => {
       setToken(state, token) {
         state.token = token;
       },
+      clearToken(state) {
+        state.token = null;
+      },
     },
     actions: {
       // nuxtServerInit(vuexContext, context) {
@@ -157,7 +160,10 @@ const createStore = () => {
               returnSecureToken: true,
             })
             .then((result) => {
+              console.log(result, "result");
+
               vuexContext.commit("setToken", result.idToken);
+              vuexContext.dispatch("setLogoutTimer", result.expiresIn);
               resolve({ success: true });
             })
             .catch((error) => {
@@ -169,10 +175,19 @@ const createStore = () => {
       setDecks(vuexContext, decks) {
         vuexContext.commit("setDecks", decks);
       },
+
+      setLogoutTimer(vuexContext, duration) {
+        setTimeout(() => {
+          vuexContext.commit("clearToken");
+        }, duration);
+      },
     },
     getters: {
       decks(state) {
         return state.decks;
+      },
+      isAuthenticated(state) {
+        return state.token != null;
       },
     },
   });
