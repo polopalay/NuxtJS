@@ -17,6 +17,7 @@
           :name="deck.name"
           :description="deck.description"
           :thumbnail="deck.thumbnail"
+          @deleteItem="onDeleteItem"
         />
       </ul>
       <!-- <input class="form_controler" type="text" id="text" v-model="deckID" placeholder="Please enter deckID">
@@ -107,6 +108,12 @@ export default {
   },
 
   methods: {
+    onDeleteItem(id) {
+      this.$store
+        .dispatch("deleteDeck", id)
+        .then(() => this.$router.push("/decks"));
+    },
+
     openModal() {
       // console.log("open modal");
       this.$modal.open({ name: "DeckFormModal" });

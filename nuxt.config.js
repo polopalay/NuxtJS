@@ -49,6 +49,7 @@ export default {
     baseApiUrl:
       process.env.BASE_API_URL ||
       "https://nuxt-learning-english-2bb5d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    fbApiKey: "AIzaSyCsO2KpZk0mFNbbzLh5PwVrTDlJ35ZkF2k",
   },
 
   //Middleware global

@@ -4,6 +4,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       decks: [],
+      token: null,
     },
     mutations: {
       addDecks(state, newDecks) {
@@ -18,6 +19,16 @@ const createStore = () => {
       },
       setDecks(state, decks) {
         state.decks = decks;
+      },
+      deleteDeck(state, deleteDeck) {
+        const deckIndex = state.decks.findIndex(
+          (deck) => deck.id === deleteDeck.id
+        );
+
+        state.decks.splice(deckIndex, 1);
+      },
+      setToken(state, token) {
+        state.token = token;
       },
     },
     actions: {
@@ -112,6 +123,47 @@ const createStore = () => {
           .catch((e) => {
             console.log(e);
           });
+      },
+
+      deleteDeck(vuexContext, deckId) {
+        return this.$axios
+          .$delete(process.env.baseApiUrl + `/decks/${deckId}.json`)
+          .then((data) => {
+            vuexContext
+              .commit("deleteDeck", {
+                ...data,
+                id: deckId,
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          });
+      },
+
+      authenticateUser(vuexContext, credentials) {
+        return new Promise((resolve, reject) => {
+          // check login or register
+          let authUrlApi = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.fbApiKey}`;
+
+          if (!credentials.isLogin) {
+            authUrlApi = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.fbApiKey}`;
+          }
+
+          // Call api to firebase
+          this.$axios
+            .$post(authUrlApi, {
+              email: credentials.email,
+              password: credentials.password,
+              returnSecureToken: true,
+            })
+            .then((result) => {
+              vuexContext.commit("setToken", result.idToken);
+              resolve({ success: true });
+            })
+            .catch((error) => {
+              reject(error.response);
+            });
+        });
       },
 
       setDecks(vuexContext, decks) {

@@ -9,6 +9,13 @@
         </div>
       </div>
     </nuxt-link>
+    <button
+      type="submit"
+      class="btn btn_danger"
+      @click.prevent="callFuncDelete"
+    >
+      Delete
+    </button>
   </li>
 </template>
 
@@ -30,6 +37,11 @@ export default {
     thumbnail: {
       type: String,
       require: true,
+    },
+  },
+  methods: {
+    callFuncDelete() {
+      this.$emit("deleteItem", this.id);
     },
   },
 };
