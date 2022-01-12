@@ -207,7 +207,10 @@ const createStore = () => {
           const tokenExpirationKey = req.headers.cookie
             .split(";")
             .find((c) => c.trim().startsWith("tokenExpiration="));
-          if (!tokenKey || !tokenExpirationKey) return false;
+          if (!tokenKey || !tokenExpirationKey) {
+            vuexContext.dispatch("logout");
+            return false;
+          }
           token = tokenKey.split("=")[1];
           tokenExpiration = tokenExpirationKey.split("=")[1];
         } else {
@@ -215,6 +218,7 @@ const createStore = () => {
           tokenExpiration = localStorage.getItem("tokenExpiration");
 
           if (new Date().getTime() > tokenExpiration || !token) {
+            vuexContext.dispatch("logout");
             return false;
           }
         }
@@ -224,6 +228,15 @@ const createStore = () => {
           tokenExpiration - new Date().getTime()
         );
         vuexContext.commit("setToken", token);
+      },
+
+      logout(vuexContext) {
+        vuexContext.commit("clearToken");
+
+        Cookies.remove("token");
+        Cookies.remove("tokenExpiration");
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpiration");
       },
     },
     getters: {
