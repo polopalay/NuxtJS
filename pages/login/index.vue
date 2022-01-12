@@ -68,7 +68,7 @@ export default {
           if (result.success) this.$router.push("/decks");
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error, "error login");
         });
     },
   },

@@ -29,7 +29,7 @@
 <script>
 import DeckList from "@/components/Decks/DeckList.vue";
 export default {
-  middleware: ["auth", "check-auth"],
+  middleware: ["check-auth", "auth"],
   head: {
     title: "Own Decks | Learning Languages By Flash Card Online",
   },
