@@ -22,10 +22,15 @@ export default {
     "~/assets/css/rhpteam.min.css",
     "~/assets/css/external.css",
     "~/assets/scss/tailwind.css",
+    "element-ui/lib/theme-chalk/index.css",
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["@/plugins/core-component.js", "@/plugins/modals/v-modal.js"],
+  plugins: [
+    "@/plugins/core-component.js",
+    "@/plugins/modals/v-modal.js",
+    "@/plugins/element-ui.js",
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
