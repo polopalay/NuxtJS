@@ -30,6 +30,8 @@ export default {
     "@/plugins/core-component.js",
     "@/plugins/modals/v-modal.js",
     "@/plugins/element-ui.js",
+    "@/plugins/axios.js",
+    "@/plugins/api.js",
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -71,5 +73,10 @@ export default {
   //Middleware global
   router: {
     middleware: "router-log",
+  },
+
+  server: {
+    port: 3000,
+    host: "0.0.0.0",
   },
 };

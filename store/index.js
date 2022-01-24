@@ -83,8 +83,6 @@ const createStore = () => {
       // },
 
       nuxtServerInit(vuexContext, context) {
-        console.log(process.env.baseApiUrl, "process.env.baseApiUrl");
-
         return context.app.$axios
           .$get(process.env.baseApiUrl + "/decks.json")
           .then((data) => {
@@ -154,12 +152,28 @@ const createStore = () => {
           }
 
           // Call api to firebase
+          console.log(this.$apis, "apis");
+
+          const res = this.$apis.post.all();
+          // const { status, data } = res;
+          console.log(res, "data api");
+
+          console.log(this.$axios, "loginUser");
+
           this.$axios
             .$post(authUrlApi, {
               email: credentials.email,
               password: credentials.password,
               returnSecureToken: true,
             })
+
+            // loginUser(
+            //   authUrlApi,
+            //   credentials.email,
+            //   credentials.password,
+            //   TextTrackCue,
+            //   this.$axios
+            // )
             .then((result) => {
               vuexContext.commit("setToken", result.idToken);
 
@@ -245,6 +259,9 @@ const createStore = () => {
       },
       isAuthenticated(state) {
         return state.token != null;
+      },
+      getToken(state) {
+        return state.token;
       },
     },
   });
